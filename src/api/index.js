@@ -34,3 +34,15 @@ export function register(openId,userInfo) {
     ...userInfo
   })
 }
+export function search(params) {
+  return get(`${API_URL}/book/search`,params)
+}
+
+export function hotSearch() {
+  return get(`${API_URL}/book/hot-search`)
+}
+
+export function searchList(params) {
+  return get(`${API_URL}/book/search-list`, params)
+}
+

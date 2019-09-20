@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="home" v-if="isAuth">
-      <search-bar></search-bar>
+      <search-bar disabled  :hotSearch="hotSearch" @onClick="searchBarClick"></search-bar>
       <home-card :data="homeCard"></home-card>
       <div :style="{marginTop:'23px'}">
         <home-book
@@ -12,13 +12,14 @@
           :row="1"
           :col="3"
           :data="recommend"
+          @onMoreClick="recommendChange('recommend')"
         ></home-book>
       </div>
       <div :style="{marginTop: '23px'}">
-        <home-book mode="row" title="免费阅读" btnText="换一批" :row="2" :col="2" :data="freeRead"></home-book>
+        <home-book @onMoreClick="recommendChange('freeRead')" mode="row" title="免费阅读" btnText="换一批" :row="2" :col="2" :data="freeRead"></home-book>
       </div>
       <div :style="{marginTop:'23px'}">
-        <home-book linearBg title="当前最热" :row="1" :col="4" :data="hotBook" mode="col" btnText="换一批"></home-book>
+        <home-book @onMoreClick="recommendChange('hotBook')" linearBg title="当前最热" :row="1" :col="4" :data="hotBook" mode="col" btnText="换一批"></home-book>
       </div>
       <div :style="{marginTop: '23px'}">
         <home-book title="分类" mode="category" btnText="查看全部" :row="3" :col="2" :data="category"></home-book>
@@ -33,7 +34,7 @@ import SearchBar from "@/components/home/SearchBar";
 import HomeCard from "@/components/home/HomeCard";
 import HomeBook from "@/components/home/HomeBook";
 import Auth from "@/components/base/Auth";
-import { getHomeData,register } from "../../api";
+import { getHomeData,recommend,freeRead,hotBook,register } from "../../api";
 import {getSetting,getUserInfo,setStorageSync,getStorageSync,getUserOpenId,showLoading,hideLoading} from '../../api/wechat'
 export default {
   data() {
@@ -48,6 +49,34 @@ export default {
     };
   },
   methods: {
+    recommendChange(key) {
+      switch(key) {
+        case 'recommend':
+          recommend().then(res => {
+            this.recommend = res.data.data
+          })
+          break;
+        case 'freeRead':
+          freeRead().then(res=> {
+            this.freeRead = res.data.data
+          })  
+          break;
+        case 'hotBook':
+          hotBook().then(res=> {
+            this.hotBook = res.data.data
+          })  
+          break;
+      }
+    },
+    searchBarClick() {
+      console.log('111')
+      this.$router.push({
+        path: "/pages/search/main",
+        query: {
+          hotSearch:this.hotSearch
+        }
+      })
+    },
     jump() {},
     init() {this.getSetting()},
     getSetting() {

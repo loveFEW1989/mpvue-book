@@ -1,5 +1,5 @@
 <template>
-  <div class="search-bar">
+  <div class="search-bar" @click="onSearchBarClick">
     <div class="search-bar-wrapper">
       <van-icon class="search" name="search" size="16px" color="#858c96"></van-icon>
       <input 
