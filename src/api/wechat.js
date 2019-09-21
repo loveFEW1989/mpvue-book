@@ -34,7 +34,7 @@ export function getUserInfo(onSuccess, onFail) {
 }
 
 export function setStorageSync(key, data) {
-  mpvue.setStorageSync(key, data)
+   mpvue.setStorageSync(key, data)
 }
 
 export function getStorageSync(key) {

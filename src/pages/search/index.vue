@@ -2,7 +2,7 @@
   <div>
     <SearchBar
       :hot-search="hotSearchKeyword"
-      
+      :focus="searchFocus"
       @onChange="onChange"
       @onClear="onClear"
       @onConfirm="onConfirm"
@@ -126,6 +126,7 @@
       }
     },
     mounted() {
+      this.searchFocus =true
       this.openId = getStorageSync('openId')
       hotSearch().then(response => {
         this.hotSearch = response.data.data
@@ -157,6 +158,12 @@
           }
         })
       } 
+    },
+    onUnload() {
+    
+    this.onClear()
+    
+   
     }
 
    

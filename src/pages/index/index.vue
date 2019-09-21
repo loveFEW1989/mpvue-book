@@ -13,16 +13,17 @@
           :col="3"
           :data="recommend"
           @onMoreClick="recommendChange('recommend')"
+          @onBookClick="onHomeBookClick"
         ></home-book>
       </div>
       <div :style="{marginTop: '23px'}">
-        <home-book @onMoreClick="recommendChange('freeRead')" mode="row" title="免费阅读" btnText="换一批" :row="2" :col="2" :data="freeRead"></home-book>
+        <home-book @onBookClick="onHomeBookClick" @onMoreClick="recommendChange('freeRead')" mode="row" title="免费阅读" btnText="换一批" :row="2" :col="2" :data="freeRead"></home-book>
       </div>
       <div :style="{marginTop:'23px'}">
-        <home-book @onMoreClick="recommendChange('hotBook')" linearBg title="当前最热" :row="1" :col="4" :data="hotBook" mode="col" btnText="换一批"></home-book>
+        <home-book @onBookClick="onHomeBookClick"  @onMoreClick="recommendChange('hotBook')" linearBg title="当前最热" :row="1" :col="4" :data="hotBook" mode="col" btnText="换一批"></home-book>
       </div>
       <div :style="{marginTop: '23px'}">
-        <home-book title="分类" mode="category" btnText="查看全部" :row="3" :col="2" :data="category"></home-book>
+        <home-book @onBookClick="onCategoryClick" title="分类" mode="category" btnText="查看全部" :row="3" :col="2" :data="category"></home-book>
       </div>
     </div>
     <Auth v-else @getUserInfo="init" />
@@ -49,6 +50,24 @@ export default {
     };
   },
   methods: {
+    onHomeBookClick(book) {
+      this.$router.push({
+        path:'/pages/detail/main',
+        query: {
+          fileName: book.fileName
+        }
+      })
+    },
+    onCategoryClick(category) {
+      this.$router.push({
+        path: "/pages/list/main",
+        query: {
+          key: 'categoryId',
+          text: category.category,
+          title: category.categoryText
+        }
+      })
+    },
     recommendChange(key) {
       switch(key) {
         case 'recommend':
