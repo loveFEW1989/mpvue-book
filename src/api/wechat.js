@@ -81,6 +81,18 @@ export function showToast(title) {
   })
 }
 
+export function showModal({title,content,callback}) {
+  mpvue.showModal({
+    title,
+    content,
+    success(res) {
+      if(res.confirm) {
+        callback&&callback()
+      }
+    }
+  })
+}
+
 export function setNavigationBarTitle(title) {
   mpvue.setNavigationBarTitle({ title })
 }

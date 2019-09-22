@@ -46,28 +46,30 @@ export function searchList(params) {
   return get(`${API_URL}/book/search-list`, params)
 }
 
-export function bookDetail(params) {
+export function getDetailData(params) {
   return get(`${API_URL}/book/detail`, params)
 }
-export function bookRankSave(params) {
-  return get(`${API_URL}/book/rank/save`,params)
+// 评分
+export function rank({ openId, fileName, rank }) {
+  return get(`${API_URL}/book/rank/save`, { openId, fileName, rank })
 }
 
-export function bookContents(params) {
-  return get(`${API_URL}/book/contents`,params)
+export function getDetailContents(fileName) {
+  return get(`${API_URL}/book/contents`,{fileName})
 }
-export function bookShelf(params) {
+// 书籍是否在书架中
+export function getShelf(openId,fileName) {
+  const params = {}
+  openId&&(params.openId=openId)
+  fileName&&(params.fileName=fileName)
+  console.log(params)
   return get(`${API_URL}/book/shelf/get`, params)
 }
-export function bookShelfSave(params) {
-  return get(`${API_URL}/book/shelf/save`,{
-    shelf: JSON.stringify(params)
-  })
+export function saveShelf(shelf) {
+  return get(`${API_URL}/book/shelf/save`,{ shelf: encodeURIComponent(JSON.stringify(shelf)) })
 }
-export function bookShelfRemove(params) {
-  return get(`${API_URL}/book/shelf/remove`,{
-    shelf: JSON.stringify(params)
-  })
+export function removeShelf(shelf) {
+  return get(`${API_URL}/book/shelf/remove`,{ shelf: encodeURIComponent(JSON.stringify(shelf)) })
 }
 export function categoryList() {
   return get(`${API_URL}/book/category/list/v2`)

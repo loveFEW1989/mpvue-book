@@ -3,7 +3,7 @@
      <div class="rate-left">轻点右侧星星评分</div>
      <div class="rate-right">
       <van-rate
-         :value="rankAvg"
+         :value="rateValue"
          :size="25"
          color="#1d89ee"
          void-color="#dee0e2"
@@ -18,7 +18,7 @@
 
 <script>
   export default {
-    props: {rankAvg:Number},
+    props: {rateValue:Number},
     methods: {
     onRateChange(e) {
       console.log(e.mp.detail)

@@ -2,11 +2,11 @@
   <div class="detail-bottom">
     <div class="detail-btn-wrapper"  @click="handleShelf">
       <van-button
-        :custom-class="inShelf ? 'detail-btn-remove' : 'detail-btn-shelf'"
+        :custom-class=" isInShelf ? 'detail-btn-remove' : 'detail-btn-shelf'"
         round
        
       >
-        {{inShelf ? '移出书架' : '加入书架'}}
+        {{ isInShelf ? '移出书架' : '加入书架'}}
       </van-button>
     </div>
     <div class="detail-btn-wrapper"  @click="() => readBook()">
@@ -24,7 +24,7 @@
 <script>
   export default {
     props: {
-      inShelf: Boolean
+      isInShelf: Boolean
     },
     methods: {
       handleShelf() {
