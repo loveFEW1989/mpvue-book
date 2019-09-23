@@ -117,7 +117,9 @@
         setStorageSync(KEY_HISTORY_SEARCH, [])
       },
       showBookDetail(text, index) {
-        console.log('show book detail', index)
+        console.log('show book detail', text)
+        const fileName = this.hotSearch[index].fileName
+        this.$router.push({path:'/pages/detail/main',query:{fileName}})
       },
       changeHotSearch() {
         hotSearch().then(response => {

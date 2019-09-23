@@ -11,7 +11,7 @@
   <DetailRate :rate-value="rateValue"  @onRateChange="onRateChange" />
   <DetailContents :contents="contents" />
   
-  <detail-bottom :is-in-shelf="isInShelf"  @handleShelf="handleShelf" ></detail-bottom>
+  <detail-bottom :is-in-shelf="isInShelf"  @handleShelf="handleShelf"  @readBook="readBook" ></detail-bottom>
   
     </div>
   <DetailPreload v-if="loading" />
@@ -135,9 +135,29 @@
         this.rateValue = rankValue
         const fileName = this.book.fileName
         const openId = getStorageSync('openId')
-        rank({openId,fileName,rank:this.rateValue})
+        rank({openId,fileName,rank:this.rateValue}).then(()=>{
+          showToast('评分成功')
+        })
          
-       }
+       },
+      //  阅读
+      readBook(nav) {
+        const params = {
+          fileName: this.book.fileName,
+          opf:this.book.opf
+        }
+        if(nav) {
+          if(nav.indexOf('/')>=0) {
+            nav = nav.slice(nav.indexOf('/')+1,nav.length)
+          }
+          params.navigation = nav
+        }
+        console.log(params)
+        this.$router.push({
+          path:'/pages/read/main',
+          query:params
+        })
+      }
      
       
        
@@ -146,6 +166,7 @@
      mounted() {
       this.loading = true
       this.init()
+      console.log(this.$route.query)
      }
   }
 </script>

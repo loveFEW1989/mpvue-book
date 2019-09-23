@@ -42,7 +42,22 @@ export function hotSearch() {
   return get(`${API_URL}/book/hot-search`)
 }
 
-export function searchList(params) {
+export function searchBook(params) {
+  if (params.publisher) {
+    params.publisher = encodeURIComponent(params.publisher)
+  }
+  if (params.author) {
+    params.author = encodeURIComponent(params.author)
+  }
+  if (params.category) {
+    params.category = encodeURIComponent(params.category)
+  }
+  if (!params.pageSize) {
+    params.pageSize = 20
+  }
+  if (!params.page) {
+    params.page = 1
+  }
   return get(`${API_URL}/book/search-list`, params)
 }
 
@@ -79,3 +94,15 @@ export function userDay(params) {
   return get(`${API_URL}/user/day`,params)
 }
 
+
+export function day(openId) {
+  return get(`${API_URL}/user/day`, { openId })
+}
+
+export function hasSignToday(openId) {
+  return get(`${API_URL}/user/hasSignToday`, { openId })
+}
+
+export function sign(openId) {
+  return get(`${API_URL}/user/sign`, { openId })
+}

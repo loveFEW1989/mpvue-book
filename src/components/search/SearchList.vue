@@ -5,21 +5,21 @@
    :title="category"
    sub-title='分类'
    v-if="category"
-   @onClick="showList(category,'category')"
+   @onClick="showList({category:category})"
    />
   <SearchItem
   icon="user-o"
   :title="author"
   sub-title="作者"
   v-if="author"
-  @onClick="showList(author,'author')"
+  @onClick="showList({author: author})"
   
   />
   <SearchItem
   icon="newspaper-o"
   :title="publisher"
   sub-title="出版社"
-  @onClick="showList(publisher,'publisher')"
+  @onClick="showList({publisher:publisher})"
   v-if="publisher"
   
   
@@ -67,13 +67,18 @@ export default {
       }
     },
     methods :{
-      showList(text,key) {
-        this.$router.push({
-          path: "/pages/list/main",
-          query: {
-            text,key,title:text
-          }
-        })
+     showList(params) {
+        const query = {}
+        if (params.category) {
+          query.category = params.category
+        }
+        if (params.author) {
+          query.author = params.author
+        }
+        if (params.publisher) {
+          query.publisher = params.publisher
+        }
+        this.$router.push({ path: '/pages/list/main', query })
       }
     }
   }

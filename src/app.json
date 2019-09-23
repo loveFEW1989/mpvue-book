@@ -3,7 +3,10 @@
     "pages/index/main",
     "pages/search/main",
     "pages/detail/main",
-    "pages/list/main"
+    "pages/list/main",
+    "pages/read/main",
+    "pages/shelf/main",
+    "pages/categoryList/main"
   
   ],
   "window": {
@@ -17,7 +20,8 @@
       "van-button": "vant-weapp/dist/button/index",
       "van-icon": "vant-weapp/dist/icon/index",
       "van-dialog": "vant-weapp/dist/dialog/index",
-      "van-rate": "vant-weapp/dist/rate/index"
+      "van-rate": "vant-weapp/dist/rate/index",
+      "toast": "vant-weapp/dist/toast/index"
     
    
     }
